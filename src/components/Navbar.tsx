@@ -78,7 +78,7 @@ const Navbar: React.FC = () => {
               <div className="hidden md:flex items-center space-x-4">
                 <div className="flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300">
                   <User className="h-4 w-4" />
-                  <span className="max-w-32 truncate">{user.email}</span>
+                  <span className="max-w-32 truncate">{user.user_metadata.full_name}</span>
                 </div>
                 <button
                   onClick={handleSignOut}
@@ -139,7 +139,7 @@ const Navbar: React.FC = () => {
                 <>
                   <div className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300">
                     <User className="h-4 w-4" />
-                    <span className="truncate">{user.email}</span>
+                    <span className="truncate">{user.user_metadata.full_name}</span>
                   </div>
                   <button
                     onClick={() => {
