@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Camera, Save, X, Mail, Calendar, Edit } from 'lucide-react';
+import { User, Camera, Save, Edit, Mail, Calendar } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import toast from 'react-hot-toast';
@@ -54,16 +54,29 @@ const Profile: React.FC = () => {
     }
   };
 
+  // Fake upload to "public/profiles"
   const uploadProfileImage = async (file: File): Promise<string> => {
-    // In a real app, you'd upload to your server or cloud storage
-    // For demo purposes, we'll use the data URL
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.onload = () => {
-        resolve(reader.result as string);
+        // instead of actual upload, just return base64
+        // mimic a "public/profiles/filename.png" path
+        const fakePath = `/profiles/${Date.now()}_${file.name}`;
+        // store preview in localStorage (simulate persistence)
+        localStorage.setItem(fakePath, reader.result as string);
+        resolve(fakePath);
       };
       reader.readAsDataURL(file);
     });
+  };
+
+  const getImageUrl = (url: string) => {
+    // if url is "public/profiles/...", fetch from localStorage
+    if (url.startsWith('/profiles/')) {
+      const data = localStorage.getItem(url);
+      return data || '';
+    }
+    return url;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -146,7 +159,7 @@ const Profile: React.FC = () => {
                     <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                       {imagePreview ? (
                         <img
-                          src={imagePreview}
+                          src={getImageUrl(imagePreview)}
                           alt="Profile"
                           className="w-full h-full object-cover"
                         />
@@ -258,7 +271,7 @@ const Profile: React.FC = () => {
                   <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                     {imagePreview ? (
                       <img
-                        src={imagePreview}
+                        src={getImageUrl(imagePreview)}
                         alt="Profile"
                         className="w-full h-full object-cover"
                       />
