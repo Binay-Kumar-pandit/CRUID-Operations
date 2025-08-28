@@ -7,6 +7,9 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import AddIdea from './pages/AddIdea';
+import EditIdea from './pages/EditIdea';
+import IdeaView from './pages/IdeaView';
+import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
 
 function App() {
@@ -20,6 +23,9 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/add-idea" element={<AddIdea />} />
+              <Route path="/edit-idea/:id" element={<EditIdea />} />
+              <Route path="/ideas/:id" element={<IdeaView />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
             <Toaster

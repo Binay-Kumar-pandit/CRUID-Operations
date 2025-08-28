@@ -76,10 +76,21 @@ const Navbar: React.FC = () => {
             {/* User actions */}
             {user ? (
               <div className="hidden md:flex items-center space-x-4">
-                <div className="flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300">
-                  <User className="h-4 w-4" />
+                <Link
+                  to="/profile"
+                  className="flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  {user.user_metadata?.avatar_url ? (
+                    <img
+                      src={user.user_metadata.avatar_url}
+                      alt="Profile"
+                      className="h-6 w-6 rounded-full object-cover"
+                    />
+                  ) : (
+                    <User className="h-4 w-4" />
+                  )}
                   <span className="max-w-32 truncate">{user.user_metadata.full_name}</span>
-                </div>
+                </Link>
                 <button
                   onClick={handleSignOut}
                   className="flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
@@ -137,10 +148,22 @@ const Navbar: React.FC = () => {
               
               {user ? (
                 <>
-                  <div className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300">
-                    <User className="h-4 w-4" />
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md transition-colors"
+                  >
+                    {user.user_metadata?.avatar_url ? (
+                      <img
+                        src={user.user_metadata.avatar_url}
+                        alt="Profile"
+                        className="h-5 w-5 rounded-full object-cover"
+                      />
+                    ) : (
+                      <User className="h-4 w-4" />
+                    )}
                     <span className="truncate">{user.user_metadata.full_name}</span>
-                  </div>
+                  </Link>
                   <button
                     onClick={() => {
                       handleSignOut();

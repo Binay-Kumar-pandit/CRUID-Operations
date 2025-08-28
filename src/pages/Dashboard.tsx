@@ -3,7 +3,7 @@ import { BarChart3, TrendingUp, DollarSign, Lightbulb, Calendar, Eye } from 'luc
 import AnalyticsChart from '../components/AnalyticsChart';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { useAuth } from '../context/AuthContext';
-import { supabaseAPI } from '../services/api';
+import { ideasAPI, analyticsAPI } from '../services/api';
 import { Idea } from '../config/supabase';
 import toast from 'react-hot-toast';
 
@@ -33,8 +33,8 @@ const Dashboard: React.FC = () => {
     try {
       setLoading(true);
       const [analytics, ideas] = await Promise.all([
-        supabaseAPI.getAnalytics(user.id),
-        supabaseAPI.getUserIdeas(user.id)
+        analyticsAPI.getUserAnalytics(user.id),
+        ideasAPI.getAll({ userId: user.id, limit: 100 })
       ]);
 
       setAnalyticsData(analytics);
